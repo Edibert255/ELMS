@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+}
+
+aside {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e0e0e0;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar Top - Inapunguza nafasi (padding) na urefu */
+.sidebar-top {
+    background-color: #0056b3;
+    padding: 12px 10px;
+    /* Nimepunguza kutoka 20px */
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Nafasi kati ya logo na maandishi imepungua */
+}
+
+/* Logo Circle - Inakuwa ndogo zaidi */
+.logo-circle {
+    width: 35px;
+    /* Nimepunguza kutoka 45px */
+    height: 35px;
+    /* Nimepunguza kutoka 45px */
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    /* Font ya CBE imekuwa ndogo */
+    color: #0056b3;
+    flex-shrink: 0;
+    /* Inazuia logo isinywele */
+}
+
+/* Maandishi ya Tasisi - Font imekuwa ndogo zaidi */
+.cbe-text h2 {
+    font-size: 11px;
+    /* Nimepunguza kutoka 13px */
+    line-height: 1.1;
+    font-weight: 600;
+}
+
+.cbe-text p {
+    font-size: 8px;
+    /* Nimepunguza kutoka 9px */
+    opacity: 0.9;
+    margin-top: 2px;
+}
+/* FORCE SMALL PROFILE IMAGE IN SIDEBAR */
+aside .user-info-sidebar img,
+.user-info-sidebar img {
+    width: 45px !important;
+    height: 45px !important;
+    min-width: 45px !important;
+    max-width: 45px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 2px solid #0056b3 !important;
+}
+
+/* Sidebar user info container */
+.user-info-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+/* User text styling */
+.user-names h3 {
+    font-size: 12px;
+    margin: 0;
+    color: #333;
+}
+
+.user-names p {
+    font-size: 10px;
+    margin: 3px 0 0;
+    color: #666;
+}
+
+/* User Info Sidebar - Pia nimeipunguza kidogo ili isichukue nafasi kubwa */
+.user-info-sidebar {
+    padding: 12px 15px;
+    /* Nimepunguza kutoka 20px */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.user-info-sidebar img {
+    width: 40px;
+    /* Nimepunguza kutoka 55px */
+    height: 40px;
+    /* Nimepunguza kutoka 55px */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #0056b3;
+}
+
+.user-names h3 {
+    font-size: 11px;
+    /* Ukubwa wa jina la mwanafunzi */
+    color: #333;
+    font-weight: bold;
+}
+
+.user-info-sidebar {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.user-info-sidebar img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0056b3;
+}
+
+nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.nav-link,
+.menu-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    color: #444;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.active-blue {
+    background-color: #0099ff !important;
+    color: white !important;
+}
+
+.nav-link:hover,
+.menu-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.menu-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.main-icon {
+    width: 18px;
+    color: #555;
+}
+
+.active-blue .main-icon {
+    color: white;
+}
+
+.arrow-icon {
+    font-size: 10px;
+}
+
+.submenu {
+    display: none;
+    background-color: #fafafa;
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu a {
+    display: block;
+    padding: 10px 20px 10px 55px;
+    color: #666;
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.content-wrapper {
+    flex: 1;
+    margin-left: 280px;
+}
+
+header.top-header {
+    background: white;
+    padding: 15px 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.welcome-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555;
+    font-size: 14px;
+}
+
+main {
+    padding: 30px;
+}
+
+.panel-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.info-banner {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.student-details p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+}

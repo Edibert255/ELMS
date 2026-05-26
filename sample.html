@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ELMS - E Learning System</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+/* FULL SCREEN HERO */
+.hero{
+  width:100%;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+
+/* SLIDES */
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:opacity 1s ease-in-out;
+}
+
+/* ACTIVE SLIDE */
+.slide.active{
+  opacity:1;
+}
+
+/* DARK OVERLAY */
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:1;
+}
+
+/* TEXT CONTENT */
+.content{
+  position:absolute;
+  z-index:2;
+  color:white;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+}
+
+.content h1{
+  font-size:50px;
+  margin-bottom:10px;
+}
+
+.content p{
+  font-size:20px;
+  margin-bottom:20px;
+}
+
+.btn{
+  padding:12px 25px;
+  background:#00bcd4;
+  border:none;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  border-radius:5px;
+}
+
+.btn:hover{
+  background:#0097a7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+  <!-- SLIDES -->
+  <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644');"></div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1501504905252-473c47e087f8');"></div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');"></div>
+
+  <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655');"></div>
+
+  <!-- DARK OVERLAY -->
+  <div class="overlay"></div>
+
+  <!-- TEXT -->
+  <div class="content">
+    <h1>WELCOME TO ELMS</h1>
+    <p>E-Learning Management System for Students & Lecturers</p>
+    <button class="btn">Get Started</button>
+  </div>
+
+</div>
+
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide(){
+  slides.forEach(slide => slide.classList.remove("active"));
+  slides[index].classList.add("active");
+
+  index++;
+
+  if(index >= slides.length){
+    index = 0;
+  }
+}
+
+setInterval(showSlide, 3000); // change every 3 seconds
+</script>
+
+</body>
+</html>

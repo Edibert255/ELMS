@@ -1,0 +1,706 @@
+<?php
+// index.php - Landing page for CBE ELMS
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBE ELMS - College of Business Education Mwanza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7f6;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* LOGO STYLES - Picha zinatoka kwenye folder images/ */
+        .logo-cbe img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-elms img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Fallback if images don't load */
+        .logo-cbe {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-elms {
+            width: 45px;
+            height: 45px;
+        }
+
+        .brand h1 {
+            font-size: 16px;
+            color: #0056b3;
+            line-height: 1.2;
+        }
+
+        .brand p {
+            font-size: 10px;
+            color: #666;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0056b3;
+        }
+
+        .btn-login {
+            background: #0056b3;
+            color: white !important;
+            padding: 8px 25px;
+            border-radius: 30px;
+        }
+
+        .btn-login:hover {
+            background: #003d82;
+            transform: scale(1.02);
+        }
+
+        .btn-guest {
+            background: #28a745;
+            color: white !important;
+            padding: 8px 25px;
+            border-radius: 30px;
+        }
+
+        .btn-guest:hover {
+            background: #1e7e34;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            margin-top: 80px;
+            padding: 60px 5%;
+            background: linear-gradient(135deg, #0056b3 0%, #0099ff 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .slogan {
+            margin-top: 20px;
+            font-size: 20px;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 12px 35px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn-primary {
+            background: white;
+            color: #0056b3;
+        }
+
+        .hero-btn-primary:hover {
+            transform: scale(1.05);
+            background: #f0f0f0;
+        }
+
+        .hero-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .hero-btn-secondary:hover {
+            background: white;
+            color: #0056b3;
+        }
+
+        /* ========== SLIDESHOW ========== */
+        .slideshow-section {
+            padding: 60px 5%;
+            background: #f4f7f6;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            display: none;
+            animation: fade 1.5s ease;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        @keyframes fade {
+            from {opacity: 0.4;}
+            to {opacity: 1;}
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 50px 30px 20px;
+            text-align: center;
+        }
+
+        .slide-caption h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .prev:hover, .next:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        .dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #0056b3;
+            transform: scale(1.2);
+        }
+
+        /* ========== COURSES SECTION ========== */
+        .courses-section {
+            padding: 60px 5%;
+            background: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #0056b3;
+        }
+
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            background: #e8f4fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .course-icon i {
+            font-size: 30px;
+            color: #0056b3;
+        }
+
+        .course-card h3 {
+            font-size: 18px;
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .course-card p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* ========== ABOUT SECTION ========== */
+        .about-section {
+            padding: 60px 5%;
+            background: linear-gradient(135deg, #0056b3, #003d82);
+            color: white;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #1a1a2e;
+            color: #ccc;
+            padding: 40px 5% 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .footer-column p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer-column i {
+            margin-right: 10px;
+            color: #0056b3;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: #ccc;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #0056b3;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .slide img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR WITH LOGOS -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <!-- CBE LOGO - Weka picha yako kwenye folder images/ iitwe CBE-logo.png -->
+            <div class="logo-cbe">
+                <img src="images/CBE-logo.jpg" alt="CBE Logo" onerror="this.src='https://via.placeholder.com/50?text=CBE'">
+            </div>
+            <!-- ELMS LOGO - Weka picha yako kwenye folder images/ iitwe ELMS-logo.png -->
+            <div class="logo-elms">
+                <img src="images/ELMS-logo.png" alt="ELMS Logo" onerror="this.src='https://via.placeholder.com/45?text=ELMS'">
+            </div>
+            <div class="brand">
+                <h1>COLLEGE OF BUSINESS EDUCATION</h1>
+                <p>Mwanza Campus | Electronic Learning Management System</p>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="login.php" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="#" class="btn-guest"><i class="fas fa-eye"></i> Visit as Guest</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <h1>Welcome to CBE ELMS</h1>
+        <p>College of Business Education - Mwanza Campus | Your Gateway to Quality Online Education</p>
+        <div class="slogan">
+            <i class="fas fa-graduation-cap"></i> Study Anywhere, Anytime <i class="fas fa-globe"></i>
+        </div>
+        <div class="hero-buttons">
+            <a href="login.php" class="hero-btn hero-btn-primary"><i class="fas fa-sign-in-alt"></i> Login to Your Account</a>
+            <a href="#" class="hero-btn hero-btn-secondary"><i class="fas fa-eye"></i> Browse as Guest</a>
+        </div>
+    </section>
+
+    <!-- SLIDESHOW SECTION (8 SLIDES) -->
+    <section class="slideshow-section">
+        <div class="section-title">
+            <h2>Our Learning Community</h2>
+            <p>Join thousands of students learning online at CBE Mwanza</p>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Students learning online">
+                <div class="slide-caption">
+                    <h3>Online Learning Made Easy</h3>
+                    <p>Access course materials anytime, anywhere</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="African students studying together">
+                <div class="slide-caption">
+                    <h3>Interactive Live Classes</h3>
+                    <p>Engage with lecturers and fellow students</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.pexels.com/photos/5900163/pexels-photo-5900163.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Student using laptop">
+                <div class="slide-caption">
+                    <h3>Flexible Schedule</h3>
+                    <p>Learn at your own pace</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="Group of African students">
+                <div class="slide-caption">
+                    <h3>Collaborative Learning</h3>
+                    <p>Study together in virtual classrooms</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655" alt="African student studying at home">
+                <div class="slide-caption">
+                    <h3>Quality Education from Home</h3>
+                    <p>Professional programs designed for working professionals</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655" alt="Student with headphones">
+                <div class="slide-caption">
+                    <h3>Quality Education</h3>
+                    <p>Nationally recognized programs</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8" alt="African female student">
+                <div class="slide-caption">
+                    <h3>Empowering Women in Tech</h3>
+                    <p>Equal opportunities for all students</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Students collaborating">
+                <div class="slide-caption">
+                    <h3>24/7 Access</h3>
+                    <p>Study whenever and wherever you want</p>
+                </div>
+            </div>
+
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+        <div class="dots" id="dots"></div>
+    </section>
+
+    <!-- COURSES SECTION (11 COURSES) -->
+    <section id="courses" class="courses-section">
+        <div class="section-title">
+            <h2>Our Programs</h2>
+            <p>Choose from our diverse range of professional courses</p>
+        </div>
+        <div class="courses-grid">
+            <a href="course_description.php?course=it" class="course-card">
+                <div class="course-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>INFORMATION TECHNOLOGY</h3>
+                <p>Learn programming, networking, databases, and modern IT skills</p>
+            </a>
+            <a href="course_description.php?course=ba" class="course-card">
+                <div class="course-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>BUSINESS ADMINISTRATION</h3>
+                <p>Master business management, leadership, and organizational skills</p>
+            </a>
+            <a href="course_description.php?course=acc" class="course-card">
+                <div class="course-icon"><i class="fas fa-calculator"></i></div>
+                <h3>ACCOUNTANCY</h3>
+                <p>Professional accounting principles and financial management</p>
+            </a>
+            <a href="course_description.php?course=acc_fin" class="course-card">
+                <div class="course-icon"><i class="fas fa-coins"></i></div>
+                <h3>ACCOUNTANCY AND FINANCE</h3>
+                <p>Combined expertise in accounting and financial analysis</p>
+            </a>
+            <a href="course_description.php?course=acc_tax" class="course-card">
+                <div class="course-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <h3>ACCOUNTANCY AND TAXATION</h3>
+                <p>Specialized knowledge in tax laws and accounting practices</p>
+            </a>
+            <a href="course_description.php?course=mkt" class="course-card">
+                <div class="course-icon"><i class="fas fa-bullhorn"></i></div>
+                <h3>MARKETING</h3>
+                <p>Strategic marketing, consumer behavior, and digital marketing</p>
+            </a>
+            <a href="course_description.php?course=logistics" class="course-card">
+                <div class="course-icon"><i class="fas fa-truck"></i></div>
+                <h3>TRANSPORTATION AND LOGISTIC MANAGEMENT</h3>
+                <p>Supply chain, logistics, and transportation operations</p>
+            </a>
+            <a href="course_description.php?course=procurement" class="course-card">
+                <div class="course-icon"><i class="fas fa-boxes"></i></div>
+                <h3>PROCUREMENT AND SUPPLY MANAGEMENT</h3>
+                <p>Procurement strategies, supplier management, and sourcing</p>
+            </a>
+            <a href="course_description.php?course=tourism" class="course-card">
+                <div class="course-icon"><i class="fas fa-umbrella-beach"></i></div>
+                <h3>TOURISM</h3>
+                <p>Tourism management, hospitality, and travel operations</p>
+            </a>
+            <a href="course_description.php?course=hr" class="course-card">
+                <div class="course-icon"><i class="fas fa-users"></i></div>
+                <h3>HUMAN RESOURCE MANAGEMENT</h3>
+                <p>HR planning, recruitment, training, and labor relations</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <h2>About CBE Mwanza Campus</h2>
+        <p>The College of Business Education (CBE) Mwanza Campus is a premier institution dedicated to providing quality education in business, ICT, and professional studies. Our Electronic Learning Management System (ELMS) offers students a seamless online learning experience with access to course materials, live classes, assignments, and library resources anytime, anywhere.</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Mwanza City, Tanzania</p>
+                <p><i class="fas fa-phone"></i> +255 752 014 091</p>
+                <p><i class="fas fa-envelope"></i> info@cbe.ac.tz</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <p><a href="login.php" style="color:#ccc; text-decoration:none;">Student Login</a></p>
+                <p><a href="login.php" style="color:#ccc; text-decoration:none;">Staff Login</a></p>
+                <p><a href="#" style="color:#ccc; text-decoration:none;">Help Center</a></p>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>CBE ELMS</h3>
+                <p>Electronic Learning Management System</p>
+                <p>© 2025 All Rights Reserved</p>
+                <p><i class="fas fa-graduation-cap"></i> Study Anywhere, Anytime</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 College of Business Education - Mwanza Campus. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Slideshow functionality
+        let slideIndex = 1;
+        let slides = document.getElementsByClassName("slide");
+        let dots = document.getElementById("dots");
+
+        function createDots() {
+            for (let i = 0; i < slides.length; i++) {
+                let dot = document.createElement("span");
+                dot.className = "dot";
+                dot.onclick = function() { currentSlide(i + 1); };
+                dots.appendChild(dot);
+            }
+        }
+
+        function showSlides(n) {
+            if (n > slides.length) slideIndex = 1;
+            if (n < 1) slideIndex = slides.length;
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            let dotsList = document.getElementsByClassName("dot");
+            for (let i = 0; i < dotsList.length; i++) {
+                dotsList[i].className = dotsList[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex - 1].style.display = "block";
+            if (dotsList[slideIndex - 1]) {
+                dotsList[slideIndex - 1].className += " active";
+            }
+        }
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        createDots();
+        showSlides(slideIndex);
+
+        // Auto slide every 5 seconds
+        setInterval(function() {
+            changeSlide(1);
+        }, 5000);
+    </script>
+</body>
+</html>
